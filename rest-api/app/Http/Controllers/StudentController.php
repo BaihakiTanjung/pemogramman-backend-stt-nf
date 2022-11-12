@@ -20,15 +20,15 @@ class StudentController extends Controller
 
     public function FunctionName(Request $request)
     {
-        $input = [
-            'nama' => $request->nama,
-            'nim' => $request->nim,
-            'email' => $request->email,
-            'jurusan' => $request->jurusan
-        ];
 
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'nim' => 'numeric|required',
+            'email' => 'email|required',
+            'jurusan' => 'required'
+        ]);
 
-        $student = Student::create($input);
+        $student = Student::create($validatedData);
 
         $data = [
             'success' => true,

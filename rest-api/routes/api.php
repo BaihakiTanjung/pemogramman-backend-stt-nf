@@ -33,14 +33,19 @@ Route::put('/animals/{id}', [AnimalController::class, 'update']);
 Route::delete('/animals/{id}', [AnimalController::class, 'destroy']);
 
 #STUDENTS
-#get
-Route::get('/students', [StudentController::class, 'index']);
 
-#post
-Route::post('/students', [StudentController::class, 'store']);
+// route group middleware
 
-#put
-Route::put('/students/{id}', [StudentController::class, 'update']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    #get
+    Route::get('/students', [StudentController::class, 'index']);
 
-#delete
-Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+    #post
+    Route::post('/students', [StudentController::class, 'store']);
+
+    #put
+    Route::put('/students/{id}', [StudentController::class, 'update']);
+
+    #delete
+    Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+});
