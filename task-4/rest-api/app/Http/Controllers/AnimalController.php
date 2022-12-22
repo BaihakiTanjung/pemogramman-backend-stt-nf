@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class AnimalController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->animals = ['kucing', 'ayam', 'ikan'];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,16 +20,9 @@ class AnimalController extends Controller
     public function index()
     {
         echo "Menampilkan data animals";
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        echo "Menampilkan form untuk menambahkan data animals";
+        foreach ($this->animals as $animal) {
+            echo $animal . "<br>";
+        }
     }
 
     /**
@@ -35,28 +34,8 @@ class AnimalController extends Controller
     public function store(Request $request)
     {
         echo "Menambahkan data animals";
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        echo "Menampilkan detail data animals dengan id = $id";
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        echo "Menampilkan form untuk mengubah data animals dengan id = $id";
+        array_push($this->animals, $request);
+        echo $this->index();
     }
 
     /**
@@ -69,6 +48,8 @@ class AnimalController extends Controller
     public function update(Request $request, $id)
     {
         echo "Mengubah data animals dengan id = $id";
+        $this->animals[$id] = $request;
+        echo $this->index();
     }
 
     /**
@@ -80,5 +61,7 @@ class AnimalController extends Controller
     public function destroy($id)
     {
         echo "Menghapus data animals dengan id = $id";
+        unset($this->animals[$id]);
+        echo $this->index();
     }
 }
