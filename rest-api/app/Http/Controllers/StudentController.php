@@ -18,7 +18,7 @@ class StudentController extends Controller
         ], 200);
     }
 
-    public function FunctionName(Request $request)
+    public function store(Request $request)
     {
 
         $validatedData = $request->validate([
